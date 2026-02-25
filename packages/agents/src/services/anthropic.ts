@@ -26,7 +26,7 @@ function getClient(): Anthropic {
 // ---------------------------------------------------------------------------
 const PRICING: Record<string, { input: number; output: number }> = {
   "claude-haiku-4-5-20251001": { input: 0.80, output: 4.0 },
-  "claude-sonnet-4-6": { input: 3.0, output: 15.0 },
+  "claude-sonnet-4-5-20250929": { input: 3.0, output: 15.0 },
 };
 
 function estimateCost(
@@ -35,7 +35,7 @@ function estimateCost(
   outputTokens: number,
 ): number {
   // Fall back to sonnet pricing for unknown models
-  const pricing = PRICING[model] ?? PRICING["claude-sonnet-4-6"];
+  const pricing = PRICING[model] ?? PRICING["claude-sonnet-4-5-20250929"];
   return (
     (inputTokens / 1_000_000) * pricing.input +
     (outputTokens / 1_000_000) * pricing.output
