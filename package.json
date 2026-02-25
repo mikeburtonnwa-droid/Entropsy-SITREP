@@ -1,0 +1,15 @@
+{
+  "name": "morning-brief",
+  "private": true,
+  "scripts": {
+    "build": "pnpm -r build",
+    "dev": "pnpm -r --parallel dev",
+    "lint": "pnpm -r lint",
+    "test": "pnpm -r test",
+    "pipeline": "pnpm --filter @morning-brief/agents pipeline",
+    "seed": "pnpm --filter @morning-brief/agents seed"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
