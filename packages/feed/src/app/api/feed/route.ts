@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
 
   let query = supabase
     .from("published_content")
-    .select("*, pipeline_runs!inner(run_date)")
+    .select("*")
     .eq("industry", industry)
     .order("publish_timestamp", { ascending: true });
 
@@ -27,11 +27,16 @@ export async function GET(request: NextRequest) {
   }
 
   if (date) {
-    query = query.eq("pipeline_runs.run_date", date);
+    // Filter by date range
+    query = query
+      .gte("publish_timestamp", `${date}T00:00:00`)
+      .lt("publish_timestamp", `${date}T23:59:59`);
   } else {
     // Default to today
     const today = new Date().toISOString().split("T")[0];
-    query = query.eq("pipeline_runs.run_date", today);
+    query = query
+      .gte("publish_timestamp", `${today}T00:00:00`)
+      .lt("publish_timestamp", `${today}T23:59:59`);
   }
 
   const { data, error } = await query;

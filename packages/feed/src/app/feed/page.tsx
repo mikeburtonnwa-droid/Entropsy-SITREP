@@ -6,12 +6,12 @@ import { StoryCard } from "@/components/StoryCard";
 
 interface Story {
   id: string;
-  rank: number;
-  headline: string;
-  source: string;
-  publish_timestamp: string;
+  title: string;
   body: string;
+  content_type: string;
+  industry: string;
   feed_url: string;
+  publish_timestamp: string;
 }
 
 export default function FeedPage() {
@@ -53,8 +53,8 @@ export default function FeedPage() {
             <StoryCard
               key={story.id}
               rank={i + 1}
-              headline={story.headline}
-              source={story.source}
+              headline={story.title}
+              source={story.industry.replace("_", " ")}
               publishTime={new Date(story.publish_timestamp).toLocaleTimeString(
                 "en-US",
                 { hour: "numeric", minute: "2-digit" },
