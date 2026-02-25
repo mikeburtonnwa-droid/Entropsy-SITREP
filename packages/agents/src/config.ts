@@ -14,9 +14,9 @@ config({ path: resolve(__dirname, "../../../../.env") });
 export const MODELS = {
   orchestrator: "claude-haiku-4-5-20251001",
   harvester: "claude-haiku-4-5-20251001",
-  curator: "claude-sonnet-4-6-20250514",
-  writer: "claude-sonnet-4-6-20250514",
-  qualityGate: "claude-sonnet-4-6-20250514",
+  curator: "claude-sonnet-4-6",
+  writer: "claude-sonnet-4-6",
+  qualityGate: "claude-sonnet-4-6",
 } as const;
 
 export type ModelRole = keyof typeof MODELS;
