@@ -53,9 +53,9 @@ export const TIMEOUTS_MS = {
 // Retry config
 // ---------------------------------------------------------------------------
 export const RETRY = {
-  maxAttempts: 3,
-  baseDelayMs: 1_000,
-  maxDelayMs: 4_000,
+  maxAttempts: 4,
+  baseDelayMs: 5_000,
+  maxDelayMs: 30_000,
 } as const;
 
 // ---------------------------------------------------------------------------

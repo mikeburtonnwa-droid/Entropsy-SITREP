@@ -1,6 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { z, type ZodSchema } from "zod";
 import { env } from "../config.js";
+import { withRetry } from "../pipeline/retry.js";
 import { childLogger } from "../utils/logger.js";
 
 const log = childLogger("anthropic");
@@ -12,7 +13,10 @@ let _client: Anthropic | null = null;
 
 function getClient(): Anthropic {
   if (!_client) {
-    _client = new Anthropic({ apiKey: env.anthropicApiKey() });
+    _client = new Anthropic({
+      apiKey: env.anthropicApiKey(),
+      maxRetries: 5,
+    });
   }
   return _client;
 }
@@ -22,7 +26,7 @@ function getClient(): Anthropic {
 // ---------------------------------------------------------------------------
 const PRICING: Record<string, { input: number; output: number }> = {
   "claude-haiku-4-5-20251001": { input: 0.80, output: 4.0 },
-  "claude-sonnet-4-6-20250514": { input: 3.0, output: 15.0 },
+  "claude-sonnet-4-6": { input: 3.0, output: 15.0 },
 };
 
 function estimateCost(
@@ -31,7 +35,7 @@ function estimateCost(
   outputTokens: number,
 ): number {
   // Fall back to sonnet pricing for unknown models
-  const pricing = PRICING[model] ?? PRICING["claude-sonnet-4-6-20250514"];
+  const pricing = PRICING[model] ?? PRICING["claude-sonnet-4-6"];
   return (
     (inputTokens / 1_000_000) * pricing.input +
     (outputTokens / 1_000_000) * pricing.output
@@ -63,12 +67,16 @@ export async function callClaude(
 
   log.debug({ model, messageCount: messages.length }, "Calling Claude");
 
-  const response = await client.messages.create({
-    model,
-    max_tokens: maxTokens,
-    system,
-    messages,
-  });
+  const response = await withRetry(
+    () =>
+      client.messages.create({
+        model,
+        max_tokens: maxTokens,
+        system,
+        messages,
+      }),
+    `claude:${model}`,
+  );
 
   const inputTokens = response.usage.input_tokens;
   const outputTokens = response.usage.output_tokens;
