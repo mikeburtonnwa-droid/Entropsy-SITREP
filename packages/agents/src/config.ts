@@ -2,8 +2,11 @@ import { config } from "dotenv";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
+// Load .env from monorepo root (local dev only — Railway injects env vars directly)
 const __dirname = dirname(fileURLToPath(import.meta.url));
+// Try monorepo root from src/, then from dist/ (compiled output)
 config({ path: resolve(__dirname, "../../../.env") });
+config({ path: resolve(__dirname, "../../../../.env") });
 
 // ---------------------------------------------------------------------------
 // Model assignments (optimised from PRD — Sonnet replaces Opus for cost)
