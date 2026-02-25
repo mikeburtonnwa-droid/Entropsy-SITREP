@@ -126,6 +126,7 @@ export class PublisherAgent extends BaseAgent {
           content_type: format.type,
           title: headline,
           body,
+          feed_url: story?.url ?? null,
         };
 
         publishBatch.push(record);

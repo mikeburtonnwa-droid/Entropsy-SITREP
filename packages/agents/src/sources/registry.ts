@@ -262,6 +262,7 @@ const RETAIL_ECOMMERCE: Source[] = [
 // ---------------------------------------------------------------------------
 
 const UNIVERSAL: Source[] = [
+  // --- Verified working (from original) ---
   {
     industry: "universal",
     sourceName: "TechCrunch AI",
@@ -276,18 +277,6 @@ const UNIVERSAL: Source[] = [
   },
   {
     industry: "universal",
-    sourceName: "MIT Technology Review",
-    feedUrl: "https://feeds.feedburner.com/mit-tech-review",
-    sourceType: "rss",
-  },
-  {
-    industry: "universal",
-    sourceName: "Wired AI",
-    feedUrl: "https://wired.com/feed/category/artificial-intelligence/latest/rss",
-    sourceType: "rss",
-  },
-  {
-    industry: "universal",
     sourceName: "The Verge AI",
     feedUrl: "https://theverge.com/rss/ai/index.xml",
     sourceType: "rss",
@@ -298,16 +287,91 @@ const UNIVERSAL: Source[] = [
     feedUrl: "https://feeds.arstechnica.com/arstechnica/technology-lab",
     sourceType: "rss",
   },
+  // --- Replaced broken feeds with verified working ones ---
   {
     industry: "universal",
-    sourceName: "Axios AI",
-    feedUrl: "https://axios.com/feeds/technology.rss",
+    sourceName: "MIT Technology Review AI",
+    feedUrl: "https://www.technologyreview.com/topic/artificial-intelligence/feed",
     sourceType: "rss",
   },
   {
     industry: "universal",
-    sourceName: "WSJ Technology",
-    feedUrl: "https://wsj.com/rss/technology.xml",
+    sourceName: "Bloomberg Technology",
+    feedUrl: "https://feeds.bloomberg.com/technology/news.rss",
+    sourceType: "rss",
+  },
+  {
+    industry: "universal",
+    sourceName: "CNBC Technology",
+    feedUrl: "https://www.cnbc.com/id/19854910/device/rss/rss.html",
+    sourceType: "rss",
+  },
+  {
+    industry: "universal",
+    sourceName: "Techmeme",
+    feedUrl: "https://www.techmeme.com/feed.xml",
+    sourceType: "rss",
+  },
+  // --- New: AI lab official blogs ---
+  {
+    industry: "universal",
+    sourceName: "OpenAI Blog",
+    feedUrl: "https://openai.com/blog/rss.xml",
+    sourceType: "rss",
+  },
+  {
+    industry: "universal",
+    sourceName: "Google AI Blog",
+    feedUrl: "https://blog.google/technology/ai/rss/",
+    sourceType: "rss",
+  },
+  {
+    industry: "universal",
+    sourceName: "Microsoft AI Blog",
+    feedUrl: "https://blogs.microsoft.com/ai/feed/",
+    sourceType: "rss",
+  },
+  // --- New: Broader tech/AI coverage ---
+  {
+    industry: "universal",
+    sourceName: "Engadget",
+    feedUrl: "https://www.engadget.com/rss.xml",
+    sourceType: "rss",
+  },
+  {
+    industry: "universal",
+    sourceName: "IEEE Spectrum AI",
+    feedUrl: "https://spectrum.ieee.org/feeds/topic/artificial-intelligence.rss",
+    sourceType: "rss",
+  },
+  {
+    industry: "universal",
+    sourceName: "SiliconANGLE",
+    feedUrl: "https://siliconangle.com/feed/",
+    sourceType: "rss",
+  },
+  {
+    industry: "universal",
+    sourceName: "NBC News Technology",
+    feedUrl: "https://feeds.nbcnews.com/nbcnews/public/tech",
+    sourceType: "rss",
+  },
+  {
+    industry: "universal",
+    sourceName: "AI News",
+    feedUrl: "https://www.artificialintelligence-news.com/feed/",
+    sourceType: "rss",
+  },
+  {
+    industry: "universal",
+    sourceName: "Hacker News",
+    feedUrl: "https://news.ycombinator.com/rss",
+    sourceType: "rss",
+  },
+  {
+    industry: "universal",
+    sourceName: "9to5Google",
+    feedUrl: "https://9to5google.com/feed/",
     sourceType: "rss",
   },
 ];
