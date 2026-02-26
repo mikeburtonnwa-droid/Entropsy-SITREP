@@ -1,6 +1,0 @@
-{
-  "installCommand": "pnpm install",
-  "buildCommand": "pnpm --filter @morning-brief/feed build",
-  "outputDirectory": "packages/feed/.next",
-  "framework": "nextjs"
-}
