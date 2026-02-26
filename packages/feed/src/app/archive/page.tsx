@@ -11,21 +11,29 @@ export default function ArchivePage() {
   );
   const [stories, setStories] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [expandedStoryId, setExpandedStoryId] = useState<string | null>(null);
 
   const [hasLoaded, setHasLoaded] = useState(false);
 
   const loadArchive = useCallback(() => {
     setLoading(true);
+    setError(null);
     setExpandedStoryId(null);
     fetch(`/api/feed?industry=${industry}&date=${date}`)
-      .then((r) => r.json())
+      .then((r) => {
+        if (!r.ok) return r.json().then((d) => Promise.reject(d.error ?? `API error ${r.status}`));
+        return r.json();
+      })
       .then((data) => {
         setStories(data.stories ?? []);
         setLoading(false);
         setHasLoaded(true);
       })
-      .catch(() => setLoading(false));
+      .catch((err) => {
+        setError(typeof err === "string" ? err : "Failed to load stories");
+        setLoading(false);
+      });
   }, [industry, date]);
 
   // Re-fetch when industry changes (if user has already loaded once)
@@ -77,6 +85,10 @@ export default function ArchivePage() {
         {loading ? (
           <div className="py-16 text-center text-[var(--text-dim)]" style={{ fontFamily: "var(--font-mono)" }}>
             Loading...
+          </div>
+        ) : error ? (
+          <div className="py-16 text-center text-sm text-[var(--critical)]" style={{ fontFamily: "var(--font-mono)" }}>
+            {error}
           </div>
         ) : stories.length === 0 ? (
           <div className="py-16 text-center text-[var(--text-dim)]" style={{ fontFamily: "var(--font-mono)" }}>

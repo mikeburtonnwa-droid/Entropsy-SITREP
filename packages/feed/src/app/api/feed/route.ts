@@ -12,6 +12,13 @@ function getSupabase() {
 }
 
 export async function GET(request: NextRequest) {
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    return NextResponse.json(
+      { error: "Supabase environment variables are not configured" },
+      { status: 500 },
+    );
+  }
+
   const { searchParams } = new URL(request.url);
   const industry = searchParams.get("industry") ?? "professional_services";
   const contentType = searchParams.get("type") ?? "brief";

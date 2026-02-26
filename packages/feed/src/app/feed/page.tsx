@@ -19,18 +19,26 @@ export default function FeedPage() {
   const [industry, setIndustry] = useState("professional_services");
   const [stories, setStories] = useState<Story[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [expandedStoryId, setExpandedStoryId] = useState<string | null>(null);
 
   useEffect(() => {
     setLoading(true);
+    setError(null);
     setExpandedStoryId(null);
     fetch(`/api/feed?industry=${industry}`)
-      .then((r) => r.json())
+      .then((r) => {
+        if (!r.ok) return r.json().then((d) => Promise.reject(d.error ?? `API error ${r.status}`));
+        return r.json();
+      })
       .then((data) => {
         setStories(data.stories ?? []);
         setLoading(false);
       })
-      .catch(() => setLoading(false));
+      .catch((err) => {
+        setError(typeof err === "string" ? err : "Failed to load stories");
+        setLoading(false);
+      });
   }, [industry]);
 
   return (
@@ -45,6 +53,10 @@ export default function FeedPage() {
         {loading ? (
           <div className="py-16 text-center text-sm text-[var(--text-dim)]">
             Loading...
+          </div>
+        ) : error ? (
+          <div className="py-16 text-center text-sm text-[var(--critical)]">
+            {error}
           </div>
         ) : stories.length === 0 ? (
           <div className="py-16 text-center text-sm text-[var(--text-dim)]">
