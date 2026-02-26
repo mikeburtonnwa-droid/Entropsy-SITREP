@@ -19,6 +19,7 @@ import {
 // ---------------------------------------------------------------------------
 const WordCountsSchema = z.object({
   brief_block: z.number().int().nonnegative(),
+  morning_brief: z.number().int().nonnegative(),
   linkedin_post: z.number().int().nonnegative(),
   facebook_post: z.number().int().nonnegative(),
   video_script_a: z.number().int().nonnegative(),
@@ -28,6 +29,7 @@ const WordCountsSchema = z.object({
 
 const WriterOutputSchema = z.object({
   brief_block: z.string().min(1),
+  morning_brief: z.string().min(1),
   linkedin_post: z.string().min(1),
   facebook_post: z.string().min(1),
   video_script_a: z.string().min(1),
@@ -43,6 +45,7 @@ type WriterOutput = z.infer<typeof WriterOutputSchema>;
 // ---------------------------------------------------------------------------
 const VALIDATION_MAP: Array<{ field: keyof Omit<WriterOutput, "word_counts">; format: FormatKey }> = [
   { field: "brief_block", format: "brief_block" },
+  { field: "morning_brief", format: "morning_brief" },
   { field: "linkedin_post", format: "linkedin_post" },
   { field: "facebook_post", format: "facebook_post" },
   { field: "video_script_a", format: "video_script_a" },
@@ -56,9 +59,9 @@ const VALIDATION_MAP: Array<{ field: keyof Omit<WriterOutput, "word_counts">; fo
 
 /**
  * Content Writer (Agents 08-10 in the pipeline).
- * One instance per industry. For each curated story, produces all 6 content
- * formats (brief block, LinkedIn, Facebook, 3 video scripts) in a single
- * LLM call, then validates word counts before writing to the DB.
+ * One instance per industry. For each curated story, produces all 7 content
+ * formats (brief block, morning brief, LinkedIn, Facebook, 3 video scripts)
+ * in a single LLM call, then validates word counts before writing to the DB.
  */
 export class WriterAgent extends BaseAgent {
   readonly agentName = "writer" as const;
@@ -164,6 +167,7 @@ export class WriterAgent extends BaseAgent {
         industry: this.industry,
         story_id: storyId,
         brief_block: writerOutput.brief_block,
+        morning_brief: writerOutput.morning_brief,
         linkedin_post: writerOutput.linkedin_post,
         facebook_post: writerOutput.facebook_post,
         video_script_a: writerOutput.video_script_a,
@@ -205,7 +209,7 @@ export class WriterAgent extends BaseAgent {
         ? story.articleText.slice(0, maxArticleChars) + "\n\n[Article truncated...]"
         : story.articleText;
 
-    return `Write all 6 content formats for the following story.
+    return `Write all 7 content formats for the following story.
 
 ## Story Details
 **Headline**: ${story.headline}
@@ -217,7 +221,7 @@ export class WriterAgent extends BaseAgent {
 ## Full Article Text
 ${truncatedArticle}
 
-Remember: return a single JSON object with all 6 content formats and their word counts. No markdown fences.`;
+Remember: return a single JSON object with all 7 content formats and their word counts. No markdown fences.`;
   }
 
   /**
@@ -269,7 +273,7 @@ Remember: return a single JSON object with all 6 content formats and their word 
     previousOutput: WriterOutput,
     validationErrors: string[],
   ): Promise<WriterOutput> {
-    const feedbackMessage = `Your previous output had word count validation errors:\n\n${validationErrors.map((e) => `- ${e}`).join("\n")}\n\nPlease revise the affected formats to meet the word count requirements and return the complete JSON object with all 6 formats. Keep the formats that passed validation unchanged.`;
+    const feedbackMessage = `Your previous output had word count validation errors:\n\n${validationErrors.map((e) => `- ${e}`).join("\n")}\n\nPlease revise the affected formats to meet the word count requirements and return the complete JSON object with all 7 formats. Keep the formats that passed validation unchanged.`;
 
     const result = await callClaudeJson({
       model: MODELS.writer,

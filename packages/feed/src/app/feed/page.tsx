@@ -12,15 +12,18 @@ interface Story {
   industry: string;
   feed_url: string;
   publish_timestamp: string;
+  run_id: string;
 }
 
 export default function FeedPage() {
   const [industry, setIndustry] = useState("professional_services");
   const [stories, setStories] = useState<Story[]>([]);
   const [loading, setLoading] = useState(true);
+  const [expandedStoryId, setExpandedStoryId] = useState<string | null>(null);
 
   useEffect(() => {
     setLoading(true);
+    setExpandedStoryId(null);
     fetch(`/api/feed?industry=${industry}`)
       .then((r) => r.json())
       .then((data) => {
@@ -31,21 +34,20 @@ export default function FeedPage() {
   }, [industry]);
 
   return (
-    <main className="mx-auto max-w-4xl px-4 py-8">
-      <header className="mb-8">
-        <h1 className="text-2xl font-bold">Morning Brief</h1>
-        <p className="mt-1 text-sm text-gray-500">
-          Today&apos;s top AI stories for industry professionals
-        </p>
+    <div className="mx-auto max-w-[740px] px-4 py-10">
+      <header className="mb-6">
+        <h1 className="heading-lg">Morning Brief</h1>
       </header>
 
       <IndustryTabs activeIndustry={industry} onChange={setIndustry} />
 
-      <div className="mt-6 space-y-4">
+      <div className="mt-6 space-y-2">
         {loading ? (
-          <div className="py-12 text-center text-gray-400">Loading...</div>
+          <div className="py-16 text-center text-sm text-[var(--text-dim)]">
+            Loading...
+          </div>
         ) : stories.length === 0 ? (
-          <div className="py-12 text-center text-gray-400">
+          <div className="py-16 text-center text-sm text-[var(--text-dim)]">
             No stories published yet today.
           </div>
         ) : (
@@ -54,17 +56,23 @@ export default function FeedPage() {
               key={story.id}
               rank={i + 1}
               headline={story.title}
-              source={story.industry.replace("_", " ")}
-              publishTime={new Date(story.publish_timestamp).toLocaleTimeString(
-                "en-US",
-                { hour: "numeric", minute: "2-digit" },
-              )}
+              source={story.industry}
+              publishTime={story.publish_timestamp}
               briefBlock={story.body}
               url={story.feed_url ?? "#"}
+              isExpanded={expandedStoryId === story.id}
+              onToggleExpand={() =>
+                setExpandedStoryId((prev) =>
+                  prev === story.id ? null : story.id,
+                )
+              }
+              storyTitle={story.title}
+              industry={story.industry}
+              runId={story.run_id}
             />
           ))
         )}
       </div>
-    </main>
+    </div>
   );
 }

@@ -12,6 +12,14 @@ export function getFormatSpecs(): string {
 - **Why It Matters**: 1-2 sentences. Written for a senior professional in this vertical. Connect it to their world explicitly.
 - Total brief (all stories combined): 200-400 words. Never exceed 400.
 
+### 1b. Morning Brief Article (200-400 words)
+- A longer-form analysis of the story for professionals who want deeper context.
+- **Lead paragraph**: 2-3 sentences summarizing what happened and why it matters. Hook the reader immediately.
+- **Context & Analysis**: 2-3 paragraphs. What led to this development? What are the key details? How does this fit into broader industry trends?
+- **Implications**: 1-2 paragraphs. What should professionals in this industry do or watch for? Be specific — name roles, workflows, or business functions affected.
+- **Bottom Line**: 1 sentence. The single takeaway a busy executive should remember.
+- Written in the same "Morning Brew meets McKinsey" voice. No academic jargon. Every paragraph earns its place.
+
 ### 2. LinkedIn Post (150-300 words)
 - **Hook (Line 1)**: A single provocative statement or uncomfortable truth. Must make a senior professional pause. No questions as hooks — statements only. Max 15 words.
 - **[blank line]**: Forces "see more" click on LinkedIn.

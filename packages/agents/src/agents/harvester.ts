@@ -18,6 +18,7 @@ import { hoursAgo } from "../utils/date.js";
 // AI-relevance keywords used for cheap pre-filter before LLM scoring
 // ---------------------------------------------------------------------------
 const AI_KEYWORDS = [
+  // --- Core AI terms ---
   "ai",
   "artificial intelligence",
   "machine learning",
@@ -48,6 +49,41 @@ const AI_KEYWORDS = [
   "retrieval augmented",
   "embedding",
   "vector",
+
+  // --- Retail & E-Commerce AI signals ---
+  "personalization",
+  "recommendation engine",
+  "demand forecast",
+  "dynamic pricing",
+  "smart inventory",
+  "customer analytics",
+  "conversational commerce",
+  "visual search",
+  "supply chain optim",
+  "automated fulfillment",
+
+  // --- Financial Services AI signals ---
+  "robo-advis",
+  "fraud detection",
+  "credit scoring",
+  "risk model",
+  "algorithmic trading",
+  "regtech",
+  "know your customer",
+  "kyc",
+  "anti-money laundering",
+  "aml",
+  "underwriting model",
+  "fintech",
+
+  // --- Cross-industry AI signals ---
+  "intelligent automation",
+  "robotic process",
+  "rpa",
+  "data-driven",
+  "smart contract",
+  "digital twin",
+  "prescriptive analytics",
 ];
 
 /**

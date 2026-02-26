@@ -3,8 +3,8 @@ import Link from "next/link";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Entropsy Morning Brief",
-  description: "Daily AI news for industry professionals",
+  title: "Entropsy SITREP",
+  description: "Daily AI intelligence briefing for industry professionals",
 };
 
 const NAV_LINKS = [
@@ -22,18 +22,43 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-gray-50 text-gray-900 antialiased">
-        <nav className="border-b border-gray-200 bg-white">
-          <div className="mx-auto flex max-w-4xl items-center gap-6 px-4 py-3">
-            <Link href="/" className="text-lg font-bold text-gray-900">
-              Entropsy
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="preload"
+          as="style"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        />
+      </head>
+      <body className="bg-[#0a0a12] text-[#e0e8e4] antialiased">
+        <nav className="sticky top-0 z-50 border-b border-[rgba(0,255,136,0.12)] bg-[rgba(10,10,18,0.95)] backdrop-blur-xl">
+          <div className="mx-auto flex max-w-[1200px] items-center gap-6 px-6 py-4">
+            <Link href="/" className="flex items-center gap-3">
+              <span
+                className="text-sm font-medium tracking-[4px] uppercase text-[#40e090]"
+                style={{ fontFamily: "var(--font-mono)" }}
+              >
+                Entropsy
+              </span>
+              <span
+                className="rounded border border-[rgba(0,255,136,0.3)] bg-[rgba(0,255,136,0.06)] px-2 py-0.5 text-[10px] font-medium tracking-[2px] uppercase text-[#40e090]"
+                style={{ fontFamily: "var(--font-mono)" }}
+              >
+                SITREP
+              </span>
             </Link>
-            <div className="flex gap-4">
+            <div className="flex gap-5">
               {NAV_LINKS.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-sm text-gray-600 hover:text-gray-900"
+                  className="text-[11px] font-normal tracking-[1px] uppercase text-[#8a9a90] transition-colors hover:text-[#40e090]"
+                  style={{ fontFamily: "var(--font-mono)" }}
                 >
                   {link.label}
                 </Link>
@@ -41,7 +66,7 @@ export default function RootLayout({
             </div>
           </div>
         </nav>
-        {children}
+        <main>{children}</main>
       </body>
     </html>
   );

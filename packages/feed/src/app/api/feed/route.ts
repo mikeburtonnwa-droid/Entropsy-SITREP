@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { markdownToHtml } from "@/lib/markdown";
+
+export const dynamic = "force-dynamic";
 
 function getSupabase() {
   return createClient(
@@ -45,5 +48,10 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  return NextResponse.json({ stories: data ?? [] });
+  const stories = (data ?? []).map((story) => ({
+    ...story,
+    body: story.content_type === "brief" ? markdownToHtml(story.body) : story.body,
+  }));
+
+  return NextResponse.json({ stories });
 }

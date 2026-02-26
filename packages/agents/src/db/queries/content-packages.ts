@@ -5,6 +5,7 @@ export interface InsertContentPackage {
   industry: string;
   story_id: string;
   brief_block: string;
+  morning_brief: string;
   linkedin_post: string;
   facebook_post: string;
   video_script_a: string;

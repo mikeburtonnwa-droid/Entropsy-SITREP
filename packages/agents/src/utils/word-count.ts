@@ -11,6 +11,7 @@ export function wordCount(text: string): number {
 /** Format spec limits from PRD §3.1-3.4 */
 export const FORMAT_SPECS = {
   brief_block: { min: 50, max: 80 },
+  morning_brief: { min: 200, max: 400 },
   brief_total: { min: 200, max: 400 },
   linkedin_post: { min: 150, max: 300 },
   facebook_post: { min: 100, max: 200 },

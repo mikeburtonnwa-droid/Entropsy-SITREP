@@ -19,7 +19,6 @@ export function CopyToClipboard({
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      // Fallback for older browsers
       const textarea = document.createElement("textarea");
       textarea.value = text;
       document.body.appendChild(textarea);
@@ -34,7 +33,11 @@ export function CopyToClipboard({
   return (
     <button
       onClick={handleCopy}
-      className="inline-flex items-center gap-1.5 rounded-md bg-gray-100 px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200"
+      className={`btn btn--sm transition-all ${
+        copied
+          ? "border-[var(--accent)] bg-[var(--accent)] text-[var(--bg)]"
+          : ""
+      }`}
     >
       {copied ? "Copied!" : label}
     </button>

@@ -4,45 +4,62 @@ const NAV_ITEMS = [
   {
     href: "/feed",
     title: "Morning Brief",
-    description: "Today's top AI stories by industry",
+    description: "Today's top AI stories ranked by sector relevance",
   },
   {
     href: "/library",
-    title: "Content Library",
+    title: "Content Arsenal",
     description: "LinkedIn, Facebook, and video content ready to deploy",
   },
   {
     href: "/status",
     title: "Pipeline Status",
-    description: "Current pipeline run status and metrics",
+    description: "Operational readiness and pipeline metrics",
   },
   {
     href: "/archive",
     title: "Archive",
-    description: "Browse previous morning briefs by date",
+    description: "Historical intelligence briefings by date",
   },
 ];
 
 export default function Home() {
   return (
-    <main className="mx-auto max-w-4xl px-4 py-12">
-      <h1 className="text-3xl font-bold">Entropsy Morning Brief</h1>
-      <p className="mt-2 text-gray-600">
-        Daily AI news for industry professionals. Automated. Every morning.
+    <div className="mx-auto max-w-[1200px] px-6 py-16">
+      <span className="overline">
+        Section 01 // Daily Intelligence -- Morning Brief
+      </span>
+      <h1 className="heading-lg mt-2">Entropsy SITREP</h1>
+      <p
+        className="mt-4 max-w-[700px] text-base font-light leading-relaxed text-[var(--text-muted)]"
+        style={{ fontFamily: "var(--font-sans)" }}
+      >
+        Automated intelligence briefing. Three sectors. 48 content assets.
+        Delivered before your first meeting.
       </p>
 
-      <div className="mt-8 grid gap-4 sm:grid-cols-2">
+      <div className="mt-12 grid gap-4 sm:grid-cols-2">
         {NAV_ITEMS.map((item) => (
           <Link
             key={item.href}
             href={item.href}
-            className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
+            className="sector-card group block"
           >
-            <h2 className="text-lg font-semibold">{item.title}</h2>
-            <p className="mt-1 text-sm text-gray-500">{item.description}</p>
+            <h2
+              className="text-base font-medium text-[var(--text)] transition-colors group-hover:text-[var(--accent)]"
+              style={{ fontFamily: "var(--font-mono)" }}
+            >
+              {item.title}
+            </h2>
+            <p
+              className="mt-2 text-sm font-light text-[var(--text-muted)]"
+              style={{ fontFamily: "var(--font-sans)" }}
+            >
+              {item.description}
+            </p>
           </Link>
         ))}
       </div>
-    </main>
+    </div>
   );
 }

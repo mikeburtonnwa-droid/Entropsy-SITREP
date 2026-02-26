@@ -5,7 +5,7 @@ import { getFormatSpecs } from "./writer-formats.js";
 
 /**
  * Build the full writer system prompt for a given industry.
- * Produces all 6 content formats in a single structured JSON response.
+ * Produces all 7 content formats in a single structured JSON response.
  */
 export function buildWriterSystemPrompt(industry: Industry): string {
   const label = INDUSTRY_LABELS[industry];
@@ -44,6 +44,7 @@ For each story, return a JSON object:
 \`\`\`json
 {
   "brief_block": "...",
+  "morning_brief": "...",
   "linkedin_post": "...",
   "facebook_post": "...",
   "video_script_a": "...",
@@ -51,6 +52,7 @@ For each story, return a JSON object:
   "video_script_c": "...",
   "word_counts": {
     "brief_block": 65,
+    "morning_brief": 300,
     "linkedin_post": 220,
     "facebook_post": 150,
     "video_script_a": 145,

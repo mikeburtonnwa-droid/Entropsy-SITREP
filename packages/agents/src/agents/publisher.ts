@@ -19,6 +19,7 @@ const CONTENT_FORMATS: {
   bufferEligible: "linkedin" | "facebook" | null;
 }[] = [
   { type: "brief", field: "brief_block", bufferEligible: null },
+  { type: "morning_brief", field: "morning_brief", bufferEligible: null },
   { type: "linkedin", field: "linkedin_post", bufferEligible: "linkedin" },
   { type: "facebook", field: "facebook_post", bufferEligible: "facebook" },
   { type: "video_a", field: "video_script_a", bufferEligible: null },
